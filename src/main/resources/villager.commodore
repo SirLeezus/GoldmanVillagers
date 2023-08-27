@@ -19,4 +19,7 @@ villager {
   }
   location;
   teleport;
+  list {
+    page brigadier:integer;
+  }
 }

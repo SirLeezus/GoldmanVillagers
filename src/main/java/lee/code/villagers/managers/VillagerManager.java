@@ -19,6 +19,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
 
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -109,6 +110,10 @@ public class VillagerManager {
       storeVillagerMetaData(entity, id);
       entity.spawnAt(location, CreatureSpawnEvent.SpawnReason.CUSTOM);
     });
+  }
+
+  public Set<Integer> getAllVillagers() {
+    return villagers.getCacheManager().getCacheVillagers().getAllVillagers();
   }
 
   public void spawnAllVillagers() {
