@@ -80,7 +80,8 @@ public class ProfessionCMD extends SubCommand {
   }
 
   @Override
-  public void performSender(CommandSender sender, String[] args) { }
+  public void performSender(CommandSender sender, String[] args) {
+  }
 
   @Override
   public List<String> onTabComplete(CommandSender sender, String[] args) {
