@@ -17,4 +17,6 @@ villager {
       command brigadier:string greedy_phrase;
     }
   }
+  location;
+  teleport;
 }

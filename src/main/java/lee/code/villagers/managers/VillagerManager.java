@@ -49,6 +49,14 @@ public class VillagerManager {
     spawnVillager(id);
   }
 
+  public Location getVillagerLocation(int id) {
+    return villagers.getCacheManager().getCacheVillagers().getLocation(id);
+  }
+
+  public String getVillagerName(int id) {
+    return villagers.getCacheManager().getCacheVillagers().getName(id);
+  }
+
   public void setVillagerName(int id, String name) {
     villagers.getCacheManager().getCacheVillagers().setName(id, name);
     respawnVillager(id);
@@ -67,6 +75,12 @@ public class VillagerManager {
   public void setVillagerCommand(int id, NPCCommandType npcCommandType, String command) {
     villagers.getCacheManager().getCacheVillagers().setCommand(id, npcCommandType, command);
     respawnVillager(id);
+  }
+
+  public void setVillagerLocation(int id, Location location) {
+    removeVillager(id);
+    villagers.getCacheManager().getCacheVillagers().setLocation(id, location);
+    spawnVillager(id);
   }
 
   private void respawnVillager(int id) {

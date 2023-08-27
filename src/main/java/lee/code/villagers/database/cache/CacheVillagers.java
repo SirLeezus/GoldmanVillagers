@@ -52,6 +52,12 @@ public class CacheVillagers extends DatabaseHandler {
     return CoreUtil.parseLocation(getVillagerTable(id).getLocation());
   }
 
+  public void setLocation(int id, Location location) {
+    final VillagerTable villagerTable = getVillagerTable(id);
+    villagerTable.setLocation(CoreUtil.serializeLocation(location));
+    updateVillagerDatabase(villagerTable);
+  }
+
   public String getName(int id) {
     return getVillagerTable(id).getName();
   }

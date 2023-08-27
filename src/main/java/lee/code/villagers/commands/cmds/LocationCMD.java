@@ -4,7 +4,6 @@ import lee.code.villagers.Villagers;
 import lee.code.villagers.commands.SubCommand;
 import lee.code.villagers.lang.Lang;
 import lee.code.villagers.managers.VillagerManager;
-import lee.code.villagers.utils.CoreUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -12,32 +11,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class NameCMD extends SubCommand {
+public class LocationCMD extends SubCommand {
 
   private final Villagers villagers;
 
-  public NameCMD(Villagers villagers) {
+  public LocationCMD(Villagers villagers) {
     this.villagers = villagers;
   }
 
   @Override
   public String getName() {
-    return "name";
+    return "location";
   }
 
   @Override
   public String getDescription() {
-    return "Rename a villager.";
+    return "Change selected villager's location.";
   }
 
   @Override
   public String getSyntax() {
-    return "/villager name &f<name>";
+    return "/villager location";
   }
 
   @Override
   public String getPermission() {
-    return "villagers.command.name";
+    return "villagers.command.location";
   }
 
   @Override
@@ -52,19 +51,14 @@ public class NameCMD extends SubCommand {
 
   @Override
   public void perform(Player player, String[] args) {
-    if (args.length < 2) {
-      player.sendMessage(Lang.USAGE.getComponent(new String[] { getSyntax() }));
-      return;
-    }
     final VillagerManager villagerManager = villagers.getVillagerManager();
     final UUID uuid = player.getUniqueId();
     if (!villagerManager.hasSelectedVillager(uuid)) {
       player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NO_SELECTED_VILLAGER.getComponent(null)));
       return;
     }
-    final String name = CoreUtil.buildStringFromArgs(args, 1);
-    villagerManager.setVillagerName(villagerManager.getSelectedVillager(uuid), name);
-    player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_NAME_SUCCESSFUL.getComponent(new String[] { name })));
+    villagerManager.setVillagerLocation(villagerManager.getSelectedVillager(uuid), player.getLocation());
+    player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_PROFESSION_SUCCESSFUL.getComponent(null)));
   }
 
   @Override

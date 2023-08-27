@@ -61,7 +61,7 @@ public class CommandCMD extends SubCommand {
     final VillagerManager villagerManager = villagers.getVillagerManager();
     final UUID uuid = player.getUniqueId();
     if (!villagerManager.hasSelectedVillager(uuid)) {
-      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NOT_SELECTED.getComponent(null)));
+      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NO_SELECTED_VILLAGER.getComponent(null)));
       return;
     }
 

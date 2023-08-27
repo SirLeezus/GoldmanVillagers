@@ -2,7 +2,6 @@ package lee.code.villagers.commands.cmds;
 
 import lee.code.villagers.Villagers;
 import lee.code.villagers.commands.SubCommand;
-import lee.code.villagers.enums.NPCCommandType;
 import lee.code.villagers.enums.NPCType;
 import lee.code.villagers.lang.Lang;
 import lee.code.villagers.managers.VillagerManager;
@@ -62,7 +61,7 @@ public class TypeCMD extends SubCommand {
     final VillagerManager villagerManager = villagers.getVillagerManager();
     final UUID uuid = player.getUniqueId();
     if (!villagerManager.hasSelectedVillager(uuid)) {
-      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NOT_SELECTED.getComponent(null)));
+      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NO_SELECTED_VILLAGER.getComponent(null)));
       return;
     }
     final String typeString = args[1].toUpperCase();
