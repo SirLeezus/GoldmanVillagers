@@ -23,6 +23,7 @@ public enum Lang {
   COMMAND_TELEPORT_FAILED("&cFailed to teleport to villager."),
   COMMAND_LIST_TITLE("&a--------- &e[ &2&lVillager List &e] &a---------"),
   COMMAND_LIST_LINE("&3{0}&7. &f{1} &7(&6ID&7: &e&l{2}&7)"),
+  COMMAND_LIST_LINE_HOVER("&aClick to teleport to &f{0}&a!"),
   COMMAND_TYPE_SUCCESSFUL("&aYou successfully updated your selected villager's type to &3{0}&a!"),
   COMMAND_COMMAND_SUCCESSFUL("&aYou successfully updated your selected villager's command to &3{0}&a!"),
   COMMAND_HELP_DIVIDER("&a▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"),

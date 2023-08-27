@@ -6,6 +6,7 @@ import lee.code.villagers.lang.Lang;
 import lee.code.villagers.managers.VillagerManager;
 import lee.code.villagers.utils.CoreUtil;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -73,7 +74,11 @@ public class ListCMD extends SubCommand {
       index = maxDisplayed * page + i;
       if (index >= villagers.size()) break;
       final int id = villagers.get(index);
-      lines.add(Lang.COMMAND_LIST_LINE.getComponent(new String[] { String.valueOf(position), villagerManager.getVillagerName(id), String.valueOf(id) }));
+      final String name = villagerManager.getVillagerName(id);
+      lines.add(Lang.COMMAND_LIST_LINE.getComponent(new String[] { String.valueOf(position), name, String.valueOf(id) })
+        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/villager teleport " + id))
+        .hoverEvent(Lang.COMMAND_LIST_LINE_HOVER.getComponent(new String[] { name }))
+      );
       position++;
     }
 
