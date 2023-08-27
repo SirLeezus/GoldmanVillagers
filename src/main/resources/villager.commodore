@@ -1,0 +1,5 @@
+villager {
+  create {
+    name brigadier:string greedy_phrase;
+  }
+}
