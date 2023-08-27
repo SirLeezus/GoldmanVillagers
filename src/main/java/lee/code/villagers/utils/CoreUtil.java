@@ -5,6 +5,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -44,6 +45,12 @@ public class CoreUtil {
       if (i < words.length - 1) sb.append(" ");
     }
     return sb.toString();
+  }
+
+  @SuppressWarnings("deprecation")
+  public static String capitalize(String message) {
+    final String format = message.toLowerCase().replaceAll("_", " ");
+    return WordUtils.capitalize(format);
   }
 
 }

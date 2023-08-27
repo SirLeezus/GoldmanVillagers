@@ -21,10 +21,12 @@ public class Villagers extends JavaPlugin {
   @Getter private CommandManager commandManager;
   @Getter private VillagerManager villagerManager;
   @Getter private CacheManager cacheManager;
+  @Getter private Data data;
   private DatabaseManager databaseManager;
 
   @Override
   public void onEnable() {
+    this.data = new Data();
     this.databaseManager = new DatabaseManager(this);
     this.cacheManager = new CacheManager(this, databaseManager);
     this.villagerManager = new VillagerManager(this);
@@ -37,6 +39,7 @@ public class Villagers extends JavaPlugin {
   @Override
   public void onDisable() {
     databaseManager.closeConnection();
+    villagerManager.removeAllVillagers();
   }
 
   private void registerListeners() {

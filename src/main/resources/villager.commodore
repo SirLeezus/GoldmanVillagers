@@ -2,4 +2,11 @@ villager {
   create {
     name brigadier:string greedy_phrase;
   }
+  select;
+  name {
+    name brigadier:string greedy_phrase;
+  }
+  profession {
+    profession brigadier:string single_word;
+  }
 }

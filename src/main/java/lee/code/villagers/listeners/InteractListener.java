@@ -22,6 +22,7 @@ public class InteractListener implements Listener {
       //TODO add click delay
       final int id = villagers.getVillagerManager().getVillagerID(e.getRightClicked());
       if (id == 0) return;
+      e.setCancelled(true);
       final Player player = e.getPlayer();
       player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_YES, 1, 1);
       villagers.getVillagerManager().runVillagerCommand(player, id);

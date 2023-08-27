@@ -56,8 +56,20 @@ public class CacheVillagers extends DatabaseHandler {
     return getVillagerTable(id).getName();
   }
 
+  public void setName(int id, String name) {
+    final VillagerTable villagerTable = getVillagerTable(id);
+    villagerTable.setName(name);
+    updateVillagerDatabase(villagerTable);
+  }
+
   public NPCProfession getProfession(int id) {
     return NPCProfession.valueOf(getVillagerTable(id).getProfession());
+  }
+
+  public void setProfession(int id, NPCProfession profession) {
+    final VillagerTable villagerTable = getVillagerTable(id);
+    villagerTable.setProfession(profession.name());
+    updateVillagerDatabase(villagerTable);
   }
 
   public NPCType getType(int id) {
