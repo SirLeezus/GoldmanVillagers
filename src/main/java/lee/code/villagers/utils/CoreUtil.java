@@ -11,6 +11,10 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class CoreUtil {
@@ -76,6 +80,14 @@ public class CoreUtil {
     final Component split = Lang.PAGE_SPACER_TEXT.getComponent(null);
     final Component prev = Lang.PREVIOUS_PAGE_TEXT.getComponent(null).hoverEvent(Lang.PREVIOUS_PAGE_HOVER.getComponent(null)).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, command + " " + (page - 1)));
     return prev.append(split).append(next);
+  }
+
+  public static <K, V extends Comparable<? super V>> HashMap<K, V> sortByValue(Map<K, V> hm, Comparator<V> comparator) {
+    final HashMap<K, V> temp = new LinkedHashMap<>();
+    hm.entrySet().stream()
+      .sorted(Map.Entry.comparingByValue(comparator))
+      .forEachOrdered(entry -> temp.put(entry.getKey(), entry.getValue()));
+    return temp;
   }
 
 }

@@ -15,9 +15,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CommandManager implements CommandExecutor {
@@ -44,6 +42,7 @@ public class CommandManager implements CommandExecutor {
     storeSubCommand(new ListCMD(villagers));
     storeSubCommand(new LevelCMD(villagers));
     storeSubCommand(new DeleteCMD(villagers));
+    storeSubCommand(new HelpCMD(villagers));
   }
 
   private void storeSubCommand(SubCommand subCommand) {
@@ -115,12 +114,15 @@ public class CommandManager implements CommandExecutor {
 
   public void sendHelpMessage(CommandSender sender) {
     int number = 1;
+    final Map<SubCommand, String> commands = new HashMap<>();
+    for (SubCommand subCommand : getSubCommands()) commands.put(subCommand, subCommand.getName());
+    final Map<SubCommand, String> sortedCommands = CoreUtil.sortByValue(commands, Comparator.naturalOrder());
     final List<Component> lines = new ArrayList<>();
     lines.add(Lang.COMMAND_HELP_DIVIDER.getComponent(null));
     lines.add(Lang.COMMAND_HELP_TITLE.getComponent(null));
     lines.add(Component.text(""));
 
-    for (SubCommand subCommand : getSubCommands()) {
+    for (SubCommand subCommand : sortedCommands.keySet()) {
       if (sender.hasPermission(subCommand.getPermission())) {
         final Component helpSubCommand = Lang.COMMAND_HELP_SUB_COMMAND.getComponent(new String[] { String.valueOf(number), subCommand.getSyntax() })
           .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.SUGGEST_COMMAND, CoreUtil.getTextBeforeCharacter(subCommand.getSyntax(), '&')))
@@ -129,6 +131,7 @@ public class CommandManager implements CommandExecutor {
         number++;
       }
     }
+
     lines.add(Component.text(""));
     lines.add(Lang.COMMAND_HELP_DIVIDER.getComponent(null));
     for (Component line : lines) sender.sendMessage(line);

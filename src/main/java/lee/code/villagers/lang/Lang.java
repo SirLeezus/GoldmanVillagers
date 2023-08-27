@@ -29,7 +29,7 @@ public enum Lang {
   COMMAND_TYPE_SUCCESSFUL("&aYou successfully updated your selected villager's type to &3{0}&a!"),
   COMMAND_COMMAND_SUCCESSFUL("&aYou successfully updated your selected villager's command to &3{0}&a!"),
   COMMAND_HELP_DIVIDER("&a▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"),
-  COMMAND_HELP_TITLE("                      &2-== &6&l&nVillager Help&r &2==-"),
+  COMMAND_HELP_TITLE("                      &2-== &d&l&nVillager Help&r &2==-"),
   COMMAND_HELP_SUB_COMMAND("&3{0}&b. &e{1}"),
   COMMAND_HELP_SUB_COMMAND_HOVER("&6{0}"),
   ERROR_NOT_CONSOLE_COMMAND("&cThis command does not work in console."),
