@@ -53,7 +53,6 @@ public class VillagerManager {
       final CraftEntity entity = villager.getBukkitEntity();
       storeVillagerMetaData(entity, id);
       entity.spawnAt(location, CreatureSpawnEvent.SpawnReason.CUSTOM);
-      System.out.println("LOADED: " + id);
     });
   }
 

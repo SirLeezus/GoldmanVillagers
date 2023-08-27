@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class CacheVillagers extends DatabaseHandler {
 
-  @Getter private final AtomicInteger nextID = new AtomicInteger(1);
+  @Getter private final AtomicInteger nextID = new AtomicInteger(0);
   private final ConcurrentHashMap<Integer, VillagerTable> villagersCache = new ConcurrentHashMap<>();
 
   public CacheVillagers(DatabaseManager databaseManager) {

@@ -61,7 +61,7 @@ public class DatabaseManager {
     TableUtils.createTableIfNotExists(connectionSource, VillagerTable.class);
     villagerDao = DaoManager.createDao(connectionSource, VillagerTable.class);
 
-    int highestID = 1;
+    int highestID = 0;
     for (VillagerTable villagerTable : villagerDao.queryForAll()) {
       cacheManager.getCacheVillagers().setVillagerTable(villagerTable);
       if (villagerTable.getId() > highestID) highestID = villagerTable.getId();
