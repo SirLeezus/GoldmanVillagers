@@ -2,10 +2,7 @@ package lee.code.villagers.commands;
 
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import lee.code.villagers.Villagers;
-import lee.code.villagers.commands.cmds.CreateCMD;
-import lee.code.villagers.commands.cmds.NameCMD;
-import lee.code.villagers.commands.cmds.ProfessionCMD;
-import lee.code.villagers.commands.cmds.SelectCMD;
+import lee.code.villagers.commands.cmds.*;
 import lee.code.villagers.lang.Lang;
 import lee.code.villagers.utils.CoreUtil;
 import lombok.NonNull;
@@ -40,6 +37,8 @@ public class CommandManager implements CommandExecutor {
     storeSubCommand(new NameCMD(villagers));
     storeSubCommand(new SelectCMD(villagers));
     storeSubCommand(new ProfessionCMD(villagers));
+    storeSubCommand(new TypeCMD(villagers));
+    storeSubCommand(new CommandCMD(villagers));
   }
 
   private void storeSubCommand(SubCommand subCommand) {

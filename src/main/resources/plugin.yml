@@ -9,4 +9,3 @@ commands:
   villager:
     description: Main villager npc command.
     permission: villagers.command.villager
-    aliases: [t]

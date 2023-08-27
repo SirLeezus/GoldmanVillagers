@@ -2,6 +2,7 @@ package lee.code.villagers.managers;
 
 import lee.code.villagers.Villagers;
 import lee.code.villagers.database.cache.CacheVillagers;
+import lee.code.villagers.enums.NPCCommandType;
 import lee.code.villagers.enums.NPCProfession;
 import lee.code.villagers.enums.NPCType;
 import lee.code.villagers.nms.VillagerNPC;
@@ -53,8 +54,18 @@ public class VillagerManager {
     respawnVillager(id);
   }
 
-  public void setProfession(int id, NPCProfession profession) {
+  public void setVillagerProfession(int id, NPCProfession profession) {
     villagers.getCacheManager().getCacheVillagers().setProfession(id, profession);
+    respawnVillager(id);
+  }
+
+  public void setVillagerType(int id, NPCType type) {
+    villagers.getCacheManager().getCacheVillagers().setType(id, type);
+    respawnVillager(id);
+  }
+
+  public void setVillagerCommand(int id, NPCCommandType npcCommandType, String command) {
+    villagers.getCacheManager().getCacheVillagers().setCommand(id, npcCommandType, command);
     respawnVillager(id);
   }
 
@@ -65,25 +76,27 @@ public class VillagerManager {
 
   private void removeVillager(int id) {
     final Location location = villagers.getCacheManager().getCacheVillagers().getLocation(id);
-    location.getWorld().getChunkAtAsync(location, true).thenAccept(chunk -> {
+    location.getWorld().getChunkAtAsync(location, true).thenAccept(chunk ->
+      Bukkit.getScheduler().runTask(villagers, () -> {
       for (Entity entity : chunk.getEntities()) {
         if (getVillagerID(entity) == id) {
           entity.remove();
           return;
         }
       }
-    }).join();
+    })).join();
   }
 
   private void spawnVillager(int id) {
     final CacheVillagers cacheVillagers = villagers.getCacheManager().getCacheVillagers();
     final Location location = cacheVillagers.getLocation(id);
-    location.getWorld().getChunkAtAsync(location, true).thenAccept(chunk -> {
+    location.getWorld().getChunkAtAsync(location, true).thenAccept(chunk ->
+      Bukkit.getScheduler().runTask(villagers, () -> {
       final VillagerNPC villager = new VillagerNPC(location, cacheVillagers.getType(id).getType(), cacheVillagers.getProfession(id).getProfession(), cacheVillagers.getName(id));
       final CraftEntity entity = villager.getBukkitEntity();
       storeVillagerMetaData(entity, id);
       entity.spawnAt(location, CreatureSpawnEvent.SpawnReason.CUSTOM);
-    });
+    }));
   }
 
   public void spawnAllVillagers() {

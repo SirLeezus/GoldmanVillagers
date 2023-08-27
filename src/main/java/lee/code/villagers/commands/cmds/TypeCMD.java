@@ -2,7 +2,8 @@ package lee.code.villagers.commands.cmds;
 
 import lee.code.villagers.Villagers;
 import lee.code.villagers.commands.SubCommand;
-import lee.code.villagers.enums.NPCProfession;
+import lee.code.villagers.enums.NPCCommandType;
+import lee.code.villagers.enums.NPCType;
 import lee.code.villagers.lang.Lang;
 import lee.code.villagers.managers.VillagerManager;
 import lee.code.villagers.utils.CoreUtil;
@@ -14,27 +15,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ProfessionCMD extends SubCommand {
+public class TypeCMD extends SubCommand {
 
   private final Villagers villagers;
 
-  public ProfessionCMD(Villagers villagers) {
+  public TypeCMD(Villagers villagers) {
     this.villagers = villagers;
   }
 
   @Override
   public String getName() {
-    return "profession";
+    return "type";
   }
 
   @Override
   public String getDescription() {
-    return "Change selected villager's profession.";
+    return "Change selected villager's type.";
   }
 
   @Override
   public String getSyntax() {
-    return "/villager profession &f<profession>";
+    return "/villager type &f<type>";
   }
 
   @Override
@@ -64,14 +65,14 @@ public class ProfessionCMD extends SubCommand {
       player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NOT_SELECTED.getComponent(null)));
       return;
     }
-    final String professionString = args[1].toUpperCase();
-    if (!villagers.getData().getVillagerProfessions().contains(professionString)) {
-      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_PROFESSION_INVALID.getComponent(new String[] { professionString })));
+    final String typeString = args[1].toUpperCase();
+    if (!villagers.getData().getVillagerTypes().contains(typeString)) {
+      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_COMMAND_TYPE_INVALID.getComponent(new String[] { typeString })));
       return;
     }
-    final NPCProfession profession = NPCProfession.valueOf(professionString);
-    villagerManager.setVillagerProfession(villagerManager.getSelectedVillager(uuid), profession);
-    player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_PROFESSION_SUCCESSFUL.getComponent(new String[] { CoreUtil.capitalize(professionString) })));
+    final NPCType type = NPCType.valueOf(typeString);
+    villagerManager.setVillagerType(villagerManager.getSelectedVillager(uuid), type);
+    player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_TYPE_SUCCESSFUL.getComponent(new String[] { CoreUtil.capitalize(typeString) })));
   }
 
   @Override
@@ -84,7 +85,7 @@ public class ProfessionCMD extends SubCommand {
 
   @Override
   public List<String> onTabComplete(CommandSender sender, String[] args) {
-    if (args.length == 2) return StringUtil.copyPartialMatches(args[1], villagers.getData().getVillagerProfessions(), new ArrayList<>());
+    if (args.length == 2) return StringUtil.copyPartialMatches(args[1], villagers.getData().getVillagerTypes(), new ArrayList<>());
     return new ArrayList<>();
   }
 }

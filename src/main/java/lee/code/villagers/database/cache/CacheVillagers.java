@@ -72,12 +72,25 @@ public class CacheVillagers extends DatabaseHandler {
     updateVillagerDatabase(villagerTable);
   }
 
+  public void setType(int id, NPCType type) {
+    final VillagerTable villagerTable = getVillagerTable(id);
+    villagerTable.setType(type.name());
+    updateVillagerDatabase(villagerTable);
+  }
+
   public NPCType getType(int id) {
     return NPCType.valueOf(getVillagerTable(id).getType());
   }
 
   public String getCommand(int id) {
     return getVillagerTable(id).getCommand();
+  }
+
+  public void setCommand(int id, NPCCommandType npcCommandType, String command) {
+    final VillagerTable villagerTable = getVillagerTable(id);
+    villagerTable.setCommandType(npcCommandType.name());
+    villagerTable.setCommand(command);
+    updateVillagerDatabase(villagerTable);
   }
 
   public boolean hasCommand(int id) {

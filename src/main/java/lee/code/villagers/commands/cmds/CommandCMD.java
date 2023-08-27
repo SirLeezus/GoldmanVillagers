@@ -2,7 +2,7 @@ package lee.code.villagers.commands.cmds;
 
 import lee.code.villagers.Villagers;
 import lee.code.villagers.commands.SubCommand;
-import lee.code.villagers.enums.NPCProfession;
+import lee.code.villagers.enums.NPCCommandType;
 import lee.code.villagers.lang.Lang;
 import lee.code.villagers.managers.VillagerManager;
 import lee.code.villagers.utils.CoreUtil;
@@ -14,32 +14,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ProfessionCMD extends SubCommand {
+public class CommandCMD extends SubCommand {
 
   private final Villagers villagers;
 
-  public ProfessionCMD(Villagers villagers) {
+  public CommandCMD(Villagers villagers) {
     this.villagers = villagers;
   }
 
   @Override
   public String getName() {
-    return "profession";
+    return "command";
   }
 
   @Override
   public String getDescription() {
-    return "Change selected villager's profession.";
+    return "Change selected villager's command.";
   }
 
   @Override
   public String getSyntax() {
-    return "/villager profession &f<profession>";
+    return "/villager command &f<type> <command>";
   }
 
   @Override
   public String getPermission() {
-    return "villagers.command.profession";
+    return "villagers.command.command";
   }
 
   @Override
@@ -54,7 +54,7 @@ public class ProfessionCMD extends SubCommand {
 
   @Override
   public void perform(Player player, String[] args) {
-    if (args.length < 2) {
+    if (args.length < 3) {
       player.sendMessage(Lang.USAGE.getComponent(new String[] { getSyntax() }));
       return;
     }
@@ -64,14 +64,21 @@ public class ProfessionCMD extends SubCommand {
       player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NOT_SELECTED.getComponent(null)));
       return;
     }
-    final String professionString = args[1].toUpperCase();
-    if (!villagers.getData().getVillagerProfessions().contains(professionString)) {
-      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_PROFESSION_INVALID.getComponent(new String[] { professionString })));
+
+    final String commandTypeString = args[1].toUpperCase();
+    if (!villagers.getData().getCommandTypes().contains(commandTypeString)) {
+      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_COMMAND_TYPE_INVALID.getComponent(new String[] { commandTypeString })));
       return;
     }
-    final NPCProfession profession = NPCProfession.valueOf(professionString);
-    villagerManager.setVillagerProfession(villagerManager.getSelectedVillager(uuid), profession);
-    player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_PROFESSION_SUCCESSFUL.getComponent(new String[] { CoreUtil.capitalize(professionString) })));
+    final NPCCommandType commandType = NPCCommandType.valueOf(commandTypeString);
+
+    final String commandString = CoreUtil.buildStringFromArgs(args, 2);
+    if (commandString.length() < 2 || commandString.charAt(0) != '/') {
+      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_COMMAND_INVALID.getComponent(new String[] { commandString })));
+      return;
+    }
+    villagerManager.setVillagerCommand(villagerManager.getSelectedVillager(uuid), commandType, commandString);
+    player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_COMMAND_SUCCESSFUL.getComponent(new String[] { commandString })));
   }
 
   @Override
@@ -84,7 +91,7 @@ public class ProfessionCMD extends SubCommand {
 
   @Override
   public List<String> onTabComplete(CommandSender sender, String[] args) {
-    if (args.length == 2) return StringUtil.copyPartialMatches(args[1], villagers.getData().getVillagerProfessions(), new ArrayList<>());
+    if (args.length == 2) return StringUtil.copyPartialMatches(args[1], villagers.getData().getCommandTypes(), new ArrayList<>());
     return new ArrayList<>();
   }
 }

@@ -9,4 +9,12 @@ villager {
   profession {
     profession brigadier:string single_word;
   }
+  type {
+    type brigadier:string single_word;
+  }
+  command {
+    type brigadier:string single_word {
+      command brigadier:string greedy_phrase;
+    }
+  }
 }
