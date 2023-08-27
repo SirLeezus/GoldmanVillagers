@@ -1,6 +1,5 @@
 package lee.code.villagers.managers;
 
-import io.papermc.paper.threadedregions.EntityScheduler;
 import lee.code.villagers.Villagers;
 import lee.code.villagers.database.cache.CacheVillagers;
 import lee.code.villagers.enums.NPCCommandType;
