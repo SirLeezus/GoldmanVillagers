@@ -8,7 +8,8 @@ import net.kyori.adventure.text.Component;
 @AllArgsConstructor
 public enum Lang {
   PREFIX("&d&lVillagers &6➔ "),
-  COMMAND_CREATE_SUCCESSFUL("&aYou successfully created the villager {0}&a!"),
+  USAGE("&6&lUsage: &e{0}"),
+  COMMAND_CREATE_SUCCESSFUL("&aYou successfully created the villager &f{0}&a!"),
   COMMAND_HELP_DIVIDER("&a▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"),
   COMMAND_HELP_TITLE("                      &2-== &6&l&nVillager Help&r &2==-"),
   COMMAND_HELP_SUB_COMMAND("&3{0}&b. &e{1}"),

@@ -30,7 +30,7 @@ public class CreateCMD extends SubCommand {
 
   @Override
   public String getSyntax() {
-    return "&e/villager create &f<name>";
+    return "/villager create &f<name>";
   }
 
   @Override
@@ -52,7 +52,7 @@ public class CreateCMD extends SubCommand {
   public void perform(Player player, String[] args) {
     //v create <name>
     if (args.length < 2) {
-      player.sendMessage(Lang.PREFIX.getComponent(null).append(CoreUtil.parseColorComponent(getSyntax())));
+      player.sendMessage(Lang.USAGE.getComponent(new String[] { getSyntax() }));
       return;
     }
     final String name = CoreUtil.buildStringFromArgs(args, 1);
