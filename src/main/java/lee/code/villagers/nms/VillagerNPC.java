@@ -31,6 +31,7 @@ public class VillagerNPC extends Villager {
     this.setCustomNameVisible(true);
     this.setVillagerData(this.getVillagerData().setProfession(villagerProfession));
     this.setVillagerData(this.getVillagerData().setType(villagertype));
+    this.setVillagerData(this.getVillagerData().setLevel(4));
     this.setAge(1);
     this.setSilent(true);
     this.collides = false;
