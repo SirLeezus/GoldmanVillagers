@@ -1,5 +1,6 @@
 package lee.code.villagers.managers;
 
+import io.papermc.paper.threadedregions.EntityScheduler;
 import lee.code.villagers.Villagers;
 import lee.code.villagers.database.cache.CacheVillagers;
 import lee.code.villagers.enums.NPCCommandType;
@@ -76,27 +77,25 @@ public class VillagerManager {
 
   private void removeVillager(int id) {
     final Location location = villagers.getCacheManager().getCacheVillagers().getLocation(id);
-    location.getWorld().getChunkAtAsync(location, true).thenAccept(chunk ->
-      Bukkit.getScheduler().runTask(villagers, () -> {
+    location.getWorld().getChunkAtAsync(location, true).thenAccept(chunk -> {
       for (Entity entity : chunk.getEntities()) {
         if (getVillagerID(entity) == id) {
-          entity.remove();
+          entity.getScheduler().run(villagers, task -> entity.remove(), null);
           return;
         }
       }
-    })).join();
+    }).join();
   }
 
   private void spawnVillager(int id) {
     final CacheVillagers cacheVillagers = villagers.getCacheManager().getCacheVillagers();
     final Location location = cacheVillagers.getLocation(id);
-    location.getWorld().getChunkAtAsync(location, true).thenAccept(chunk ->
-      Bukkit.getScheduler().runTask(villagers, () -> {
+    location.getWorld().getChunkAtAsync(location, true).thenAccept(chunk -> {
       final VillagerNPC villager = new VillagerNPC(location, cacheVillagers.getType(id).getType(), cacheVillagers.getProfession(id).getProfession(), cacheVillagers.getName(id));
       final CraftEntity entity = villager.getBukkitEntity();
       storeVillagerMetaData(entity, id);
       entity.spawnAt(location, CreatureSpawnEvent.SpawnReason.CUSTOM);
-    }));
+    });
   }
 
   public void spawnAllVillagers() {
