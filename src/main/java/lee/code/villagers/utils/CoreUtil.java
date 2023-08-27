@@ -34,6 +34,12 @@ public class CoreUtil {
     return location.getWorld().getName() + "," + location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getYaw() + "," + location.getPitch();
   }
 
+  public static String getTextBeforeCharacter(String input, char character) {
+    final int index = input.indexOf(character);
+    if (index == -1) return input;
+    else return input.substring(0, index);
+  }
+
   public static Location parseLocation(String location) {
     if (location == null) return null;
     final String[] split = location.split(",", 6);

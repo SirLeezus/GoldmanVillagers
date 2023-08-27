@@ -120,11 +120,10 @@ public class CommandManager implements CommandExecutor {
     lines.add(Lang.COMMAND_HELP_TITLE.getComponent(null));
     lines.add(Component.text(""));
 
-    //TODO fix <> issue
     for (SubCommand subCommand : getSubCommands()) {
       if (sender.hasPermission(subCommand.getPermission())) {
         final Component helpSubCommand = Lang.COMMAND_HELP_SUB_COMMAND.getComponent(new String[] { String.valueOf(number), subCommand.getSyntax() })
-          .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.SUGGEST_COMMAND, CoreUtil.stripColorCodes(subCommand.getSyntax())))
+          .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.SUGGEST_COMMAND, CoreUtil.getTextBeforeCharacter(subCommand.getSyntax(), '&')))
           .hoverEvent(Lang.COMMAND_HELP_SUB_COMMAND_HOVER.getComponent(new String[] { subCommand.getDescription() }));
         lines.add(helpSubCommand);
         number++;
