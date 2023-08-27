@@ -43,6 +43,7 @@ public class CommandManager implements CommandExecutor {
     storeSubCommand(new TeleportCMD(villagers));
     storeSubCommand(new ListCMD(villagers));
     storeSubCommand(new LevelCMD(villagers));
+    storeSubCommand(new DeleteCMD(villagers));
   }
 
   private void storeSubCommand(SubCommand subCommand) {

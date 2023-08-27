@@ -15,6 +15,7 @@ public enum Lang {
   NEXT_PAGE_HOVER("&6&lNext Page"),
   PREVIOUS_PAGE_HOVER("&6&lPrevious Page"),
   COMMAND_CREATE_SUCCESSFUL("&aYou successfully created the villager &f{0}&a!"),
+  COMMAND_DELETE_SUCCESSFUL("&aYou successfully deleted the villager &f{0}&a!"),
   COMMAND_SELECT_SUCCESSFUL("&aYou successfully selected the villager &f{0}&a!"),
   COMMAND_NAME_SUCCESSFUL("&aYou successfully updated your selected villager's name to &f{0}&a!"),
   COMMAND_LEVEL_SUCCESSFUL("&aYou successfully updated your selected villager's level to &3{0}&a!"),

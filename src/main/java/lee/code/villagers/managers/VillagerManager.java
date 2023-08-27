@@ -32,6 +32,10 @@ public class VillagerManager {
     this.villagers = villagers;
   }
 
+  private void removeSelectedVillager(UUID uuid) {
+    selectedVillager.remove(uuid);
+  }
+
   private void setSelectedVillager(UUID uuid, int id) {
     selectedVillager.put(uuid, id);
   }
@@ -89,6 +93,12 @@ public class VillagerManager {
     respawnVillager(id);
   }
 
+  public void deleteVillager(UUID uuid, int id) {
+    removeSelectedVillager(uuid);
+    removeVillager(id);
+    villagers.getCacheManager().getCacheVillagers().deleteVillager(id);
+  }
+
   private void respawnVillager(int id) {
     removeVillager(id);
     spawnVillager(id);
@@ -99,7 +109,10 @@ public class VillagerManager {
     location.getWorld().getChunkAtAsync(location, true).thenAccept(chunk -> {
       for (Entity entity : chunk.getEntities()) {
         if (getVillagerID(entity) == id) {
-          entity.getScheduler().run(villagers, task -> entity.remove(), null);
+          entity.getScheduler().run(villagers, task -> {
+            removeForceChunkLoad(chunk, id);
+            entity.remove();
+          }, null);
           return;
         }
       }
@@ -114,7 +127,16 @@ public class VillagerManager {
       final CraftEntity entity = villager.getBukkitEntity();
       storeVillagerMetaData(entity, id);
       entity.spawnAt(location, CreatureSpawnEvent.SpawnReason.CUSTOM);
+      chunk.setForceLoaded(true);
     });
+  }
+
+  private void removeForceChunkLoad(Chunk chunk, int id) {
+    for (Entity entity : chunk.getEntities()) {
+      final int targetID = getVillagerID(entity);
+      if (targetID != 0 && targetID != id) return;
+    }
+    chunk.setForceLoaded(false);
   }
 
   public Set<Integer> getAllVillagers() {
