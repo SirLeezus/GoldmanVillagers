@@ -6,7 +6,6 @@ import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -54,10 +53,6 @@ public class CoreUtil {
     final GsonComponentSerializer serializer = GsonComponentSerializer.gson();
     final Component component = parseColorComponent(text);
     return serializer.serialize(component);
-  }
-
-  public static String stripColorCodes(String text) {
-    return PlainTextComponentSerializer.plainText().serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(text));
   }
 
   public static String buildStringFromArgs(String[] words, int startIndex) {
