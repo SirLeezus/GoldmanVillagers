@@ -17,6 +17,7 @@ public enum Lang {
   COMMAND_CREATE_SUCCESSFUL("&aYou successfully created the villager &f{0}&a!"),
   COMMAND_SELECT_SUCCESSFUL("&aYou successfully selected the villager &f{0}&a!"),
   COMMAND_NAME_SUCCESSFUL("&aYou successfully updated your selected villager's name to &f{0}&a!"),
+  COMMAND_LEVEL_SUCCESSFUL("&aYou successfully updated your selected villager's level to &3{0}&a!"),
   COMMAND_PROFESSION_SUCCESSFUL("&aYou successfully updated your selected villager's profession to &3{0}&a!"),
   COMMAND_LOCATION_SUCCESSFUL("&aYou successfully updated your selected villager's location!"),
   COMMAND_TELEPORT_SUCCESSFUL("&aYou successfully teleported to villager {0}&a!"),
@@ -42,6 +43,7 @@ public enum Lang {
   ERROR_VALUE_INVALID("&cThe input &3{0} &cis not a acceptable value."),
   ERROR_ID_INVALID("&cThe input &3{0} &cis not valid villager ID."),
   ERROR_ONE_COMMAND_AT_A_TIME("&cYou're currently processing another command, please wait for it to finish."),
+  ERROR_LEVEL_MAX("&cYou can only set a villager's level between 1 and 5."),
   ;
   @Getter private final String string;
 

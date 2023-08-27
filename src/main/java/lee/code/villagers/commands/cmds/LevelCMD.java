@@ -12,32 +12,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class NameCMD extends SubCommand {
+public class LevelCMD extends SubCommand {
 
   private final Villagers villagers;
 
-  public NameCMD(Villagers villagers) {
+  public LevelCMD(Villagers villagers) {
     this.villagers = villagers;
   }
 
   @Override
   public String getName() {
-    return "name";
+    return "level";
   }
 
   @Override
   public String getDescription() {
-    return "Rename your selected villager.";
+    return "Set your selected villager's level.";
   }
 
   @Override
   public String getSyntax() {
-    return "/villager name &f<name>";
+    return "/villager level &f<level>";
   }
 
   @Override
   public String getPermission() {
-    return "villagers.command.name";
+    return "villagers.command.level";
   }
 
   @Override
@@ -62,9 +62,18 @@ public class NameCMD extends SubCommand {
       player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NO_SELECTED_VILLAGER.getComponent(null)));
       return;
     }
-    final String name = CoreUtil.buildStringFromArgs(args, 1);
-    villagerManager.setVillagerName(villagerManager.getSelectedVillager(uuid), name);
-    player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_NAME_SUCCESSFUL.getComponent(new String[] { name })));
+    final String levelString = args[1];
+    if (!CoreUtil.isPositiveIntNumber(levelString)) {
+      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_VALUE_INVALID.getComponent(new String[] { levelString } )));
+      return;
+    }
+    int level = Integer.parseInt(levelString);
+    if (level > 5) {
+      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_LEVEL_MAX.getComponent(new String[] { levelString } )));
+      return;
+    }
+    villagerManager.setVillagerLevel(villagerManager.getSelectedVillager(uuid), level);
+    player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_LEVEL_SUCCESSFUL.getComponent(new String[] { levelString })));
   }
 
   @Override

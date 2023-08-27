@@ -31,6 +31,9 @@ public class VillagerTable {
   @DatabaseField(columnName = "command")
   private String command;
 
+  @DatabaseField(columnName = "level")
+  private int level;
+
   public VillagerTable(int id, String location, String name, String type, String profession) {
     this.id = id;
     this.location = location;

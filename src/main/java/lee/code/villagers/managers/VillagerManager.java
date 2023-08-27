@@ -84,6 +84,11 @@ public class VillagerManager {
     spawnVillager(id);
   }
 
+  public void setVillagerLevel(int id, int level) {
+    villagers.getCacheManager().getCacheVillagers().setLevel(id, level);
+    respawnVillager(id);
+  }
+
   private void respawnVillager(int id) {
     removeVillager(id);
     spawnVillager(id);
@@ -105,7 +110,7 @@ public class VillagerManager {
     final CacheVillagers cacheVillagers = villagers.getCacheManager().getCacheVillagers();
     final Location location = cacheVillagers.getLocation(id);
     location.getWorld().getChunkAtAsync(location, true).thenAccept(chunk -> {
-      final VillagerNPC villager = new VillagerNPC(location, cacheVillagers.getType(id).getType(), cacheVillagers.getProfession(id).getProfession(), cacheVillagers.getName(id));
+      final VillagerNPC villager = new VillagerNPC(location, cacheVillagers.getType(id).getType(), cacheVillagers.getProfession(id).getProfession(), cacheVillagers.getName(id), cacheVillagers.getLevel(id));
       final CraftEntity entity = villager.getBukkitEntity();
       storeVillagerMetaData(entity, id);
       entity.spawnAt(location, CreatureSpawnEvent.SpawnReason.CUSTOM);

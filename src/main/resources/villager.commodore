@@ -24,4 +24,7 @@ villager {
   list {
     page brigadier:integer;
   }
+  level {
+    level brigadier:integer;
+  }
 }

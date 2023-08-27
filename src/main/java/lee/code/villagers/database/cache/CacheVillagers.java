@@ -58,6 +58,16 @@ public class CacheVillagers extends DatabaseHandler {
     updateVillagerDatabase(villagerTable);
   }
 
+  public int getLevel(int id) {
+    return getVillagerTable(id).getLevel();
+  }
+
+  public void setLevel(int id, int level) {
+    final VillagerTable villagerTable = getVillagerTable(id);
+    villagerTable.setLevel(level);
+    updateVillagerDatabase(villagerTable);
+  }
+
   public String getName(int id) {
     return getVillagerTable(id).getName();
   }

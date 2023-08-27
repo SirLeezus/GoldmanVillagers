@@ -21,7 +21,7 @@ import java.lang.reflect.Field;
 
 public class VillagerNPC extends Villager {
 
-  public VillagerNPC(Location loc, VillagerType villagertype, VillagerProfession villagerProfession, String name) {
+  public VillagerNPC(Location loc, VillagerType villagertype, VillagerProfession villagerProfession, String name, int level) {
     super(EntityType.VILLAGER, ((CraftWorld)loc.getWorld()).getHandle(), villagertype);
     this.setPos(loc.getX(), loc.getY(), loc.getZ());
     this.removeAI();
@@ -31,7 +31,7 @@ public class VillagerNPC extends Villager {
     this.setCustomNameVisible(true);
     this.setVillagerData(this.getVillagerData().setProfession(villagerProfession));
     this.setVillagerData(this.getVillagerData().setType(villagertype));
-    this.setVillagerData(this.getVillagerData().setLevel(4));
+    this.setVillagerData(this.getVillagerData().setLevel(level));
     this.setAge(1);
     this.setSilent(true);
     this.collides = false;
