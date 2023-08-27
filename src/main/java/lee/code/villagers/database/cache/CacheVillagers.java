@@ -3,6 +3,7 @@ package lee.code.villagers.database.cache;
 import lee.code.villagers.database.DatabaseManager;
 import lee.code.villagers.database.handlers.DatabaseHandler;
 import lee.code.villagers.database.tables.VillagerTable;
+import lee.code.villagers.enums.NPCCommandType;
 import lee.code.villagers.enums.NPCProfession;
 import lee.code.villagers.enums.NPCType;
 import lee.code.villagers.utils.CoreUtil;
@@ -60,6 +61,18 @@ public class CacheVillagers extends DatabaseHandler {
 
   public NPCType getType(int id) {
     return NPCType.valueOf(getVillagerTable(id).getType());
+  }
+
+  public String getCommand(int id) {
+    return getVillagerTable(id).getCommand();
+  }
+
+  public boolean hasCommand(int id) {
+    return getVillagerTable(id).getCommand() != null;
+  }
+
+  public NPCCommandType getCommandType(int id) {
+    return NPCCommandType.valueOf(getVillagerTable(id).getCommandType());
   }
 
 }

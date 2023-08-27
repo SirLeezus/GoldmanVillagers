@@ -5,6 +5,8 @@ import lee.code.villagers.commands.CommandManager;
 import lee.code.villagers.commands.TabCompletion;
 import lee.code.villagers.database.CacheManager;
 import lee.code.villagers.database.DatabaseManager;
+import lee.code.villagers.listeners.DamageListener;
+import lee.code.villagers.listeners.InteractListener;
 import lee.code.villagers.managers.VillagerManager;
 import lombok.Getter;
 import me.lucko.commodore.CommodoreProvider;
@@ -28,11 +30,17 @@ public class Villagers extends JavaPlugin {
     this.commandManager = new CommandManager(this);
     databaseManager.initialize(false);
     registerCommands();
+    registerListeners();
   }
 
   @Override
   public void onDisable() {
     databaseManager.closeConnection();
+  }
+
+  private void registerListeners() {
+    getServer().getPluginManager().registerEvents(new DamageListener(this), this);
+    getServer().getPluginManager().registerEvents(new InteractListener(this), this);
   }
 
   private void registerCommands() {
@@ -49,5 +57,4 @@ public class Villagers extends JavaPlugin {
       throw new RuntimeException(e);
     }
   }
-
 }

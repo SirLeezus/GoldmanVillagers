@@ -55,7 +55,7 @@ public class CreateCMD extends SubCommand {
       player.sendMessage(Lang.PREFIX.getComponent(null).append(CoreUtil.parseColorComponent(getSyntax())));
       return;
     }
-    final String name = CoreUtil.buildStringFromArgs(args, 2);
+    final String name = CoreUtil.buildStringFromArgs(args, 1);
     villagers.getVillagerManager().createVillager(player.getUniqueId(), name, player.getLocation());
     player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_CREATE_SUCCESSFUL.getComponent(new String[] { name })));
   }

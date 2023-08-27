@@ -5,10 +5,12 @@ import lee.code.villagers.database.cache.CacheVillagers;
 import lee.code.villagers.enums.NPCProfession;
 import lee.code.villagers.enums.NPCType;
 import lee.code.villagers.nms.VillagerNPC;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.v1_20_R1.entity.CraftEntity;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -60,11 +62,22 @@ public class VillagerManager {
     container.set(key, PersistentDataType.INTEGER, id);
   }
 
-
   public int getVillagerID(Entity entity) {
     final PersistentDataContainer container = entity.getPersistentDataContainer();
     final NamespacedKey key = new NamespacedKey(villagers, "npc");
     return container.getOrDefault(key, PersistentDataType.INTEGER, 0);
   }
 
+  public void runVillagerCommand(Player player, int id) {
+    final CacheVillagers cacheVillagers = villagers.getCacheManager().getCacheVillagers();
+    if (!cacheVillagers.hasCommand(id)) return;
+    final String command = cacheVillagers.getCommand(id);
+    switch (cacheVillagers.getCommandType(id)) {
+      case PLAYER -> player.chat(command);
+      case CONSOLE -> {
+        final String run = command.replaceAll("%player%", player.getName());
+        Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), run);
+      }
+    }
+  }
 }
