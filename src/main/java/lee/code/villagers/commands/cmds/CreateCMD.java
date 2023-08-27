@@ -50,7 +50,6 @@ public class CreateCMD extends SubCommand {
 
   @Override
   public void perform(Player player, String[] args) {
-    //v create <name>
     if (args.length < 2) {
       player.sendMessage(Lang.USAGE.getComponent(new String[] { getSyntax() }));
       return;
