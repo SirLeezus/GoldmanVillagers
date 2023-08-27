@@ -19,8 +19,8 @@ public enum Lang {
   COMMAND_NAME_SUCCESSFUL("&aYou successfully updated your selected villager's name to &f{0}&a!"),
   COMMAND_PROFESSION_SUCCESSFUL("&aYou successfully updated your selected villager's profession to &3{0}&a!"),
   COMMAND_LOCATION_SUCCESSFUL("&aYou successfully updated your selected villager's location!"),
-  COMMAND_TELEPORT_SUCCESSFUL("&aYou successfully teleported to your selected villager {0}&a!"),
-  COMMAND_TELEPORT_FAILED("&cFailed to teleport to selected villager."),
+  COMMAND_TELEPORT_SUCCESSFUL("&aYou successfully teleported to villager {0}&a!"),
+  COMMAND_TELEPORT_FAILED("&cFailed to teleport to villager."),
   COMMAND_LIST_TITLE("&a--------- &e[ &2&lVillager List &e] &a---------"),
   COMMAND_LIST_LINE("&3{0}&7. &f{1} &7(&6ID&7: &e&l{2}&7)"),
   COMMAND_TYPE_SUCCESSFUL("&aYou successfully updated your selected villager's type to &3{0}&a!"),
@@ -38,6 +38,8 @@ public enum Lang {
   ERROR_COMMAND_TYPE_INVALID("&cThe input &3{0} &cis not a valid villager type."),
   ERROR_TYPE_INVALID("&cThe input &3{0} &cis not a valid villager type."),
   ERROR_LIST_NONE("&cYou currently don't have any saved villagers."),
+  ERROR_VALUE_INVALID("&cThe input &3{0} &cis not a acceptable value."),
+  ERROR_ID_INVALID("&cThe input &3{0} &cis not valid villager ID."),
   ERROR_ONE_COMMAND_AT_A_TIME("&cYou're currently processing another command, please wait for it to finish."),
   ;
   @Getter private final String string;

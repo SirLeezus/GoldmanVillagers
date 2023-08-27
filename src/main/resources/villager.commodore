@@ -18,7 +18,9 @@ villager {
     }
   }
   location;
-  teleport;
+  teleport {
+    id brigadier:integer;
+  }
   list {
     page brigadier:integer;
   }

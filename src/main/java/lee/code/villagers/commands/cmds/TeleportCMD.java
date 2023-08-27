@@ -4,6 +4,7 @@ import lee.code.villagers.Villagers;
 import lee.code.villagers.commands.SubCommand;
 import lee.code.villagers.lang.Lang;
 import lee.code.villagers.managers.VillagerManager;
+import lee.code.villagers.utils.CoreUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -53,11 +54,27 @@ public class TeleportCMD extends SubCommand {
   public void perform(Player player, String[] args) {
     final VillagerManager villagerManager = villagers.getVillagerManager();
     final UUID uuid = player.getUniqueId();
-    if (!villagerManager.hasSelectedVillager(uuid)) {
-      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NO_SELECTED_VILLAGER.getComponent(null)));
-      return;
+    final int id;
+    if (args.length > 1) {
+      final String idString = args[1];
+      if (!CoreUtil.isPositiveIntNumber(idString)) {
+        player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_VALUE_INVALID.getComponent(new String[] { idString } )));
+        return;
+      }
+      final int targetID = Integer.parseInt(idString);
+      if (!villagerManager.getAllVillagers().contains(targetID)) {
+        player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_ID_INVALID.getComponent(new String[] { idString })));
+        return;
+      }
+      id = targetID;
+    } else {
+      if (!villagerManager.hasSelectedVillager(uuid)) {
+        player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NO_SELECTED_VILLAGER.getComponent(null)));
+        return;
+      }
+      id = villagerManager.getSelectedVillager(uuid);
     }
-    final int id = villagerManager.getSelectedVillager(uuid);
+
     player.teleportAsync(villagerManager.getVillagerLocation(id)).thenAccept(result -> {
       if (result) player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_TELEPORT_SUCCESSFUL.getComponent(new String[] { villagerManager.getVillagerName(id) })));
       else player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_TELEPORT_FAILED.getComponent(null)));
