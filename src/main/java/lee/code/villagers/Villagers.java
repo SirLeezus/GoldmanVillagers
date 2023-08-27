@@ -7,6 +7,7 @@ import lee.code.villagers.database.CacheManager;
 import lee.code.villagers.database.DatabaseManager;
 import lee.code.villagers.listeners.DamageListener;
 import lee.code.villagers.listeners.InteractListener;
+import lee.code.villagers.listeners.ServerLoadListener;
 import lee.code.villagers.managers.VillagerManager;
 import lombok.Getter;
 import me.lucko.commodore.CommodoreProvider;
@@ -41,6 +42,7 @@ public class Villagers extends JavaPlugin {
   private void registerListeners() {
     getServer().getPluginManager().registerEvents(new DamageListener(this), this);
     getServer().getPluginManager().registerEvents(new InteractListener(this), this);
+    getServer().getPluginManager().registerEvents(new ServerLoadListener(this), this);
   }
 
   private void registerCommands() {

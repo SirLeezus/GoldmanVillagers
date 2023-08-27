@@ -2,7 +2,6 @@ name: $name
 version: $version
 main: lee.code.villagers.Villagers
 description: $description
-load: STARTUP
 author: Lee
 folia-supported: true
 api-version: "$apiVersion"

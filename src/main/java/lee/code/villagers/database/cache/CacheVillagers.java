@@ -10,6 +10,8 @@ import lee.code.villagers.utils.CoreUtil;
 import lombok.Getter;
 import org.bukkit.Location;
 
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -73,6 +75,10 @@ public class CacheVillagers extends DatabaseHandler {
 
   public NPCCommandType getCommandType(int id) {
     return NPCCommandType.valueOf(getVillagerTable(id).getCommandType());
+  }
+
+  public Set<Integer> getAllVillagers() {
+    return villagersCache.keySet();
   }
 
 }
