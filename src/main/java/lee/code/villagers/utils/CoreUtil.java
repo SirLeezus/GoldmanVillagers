@@ -84,5 +84,4 @@ public class CoreUtil {
       .forEachOrdered(entry -> temp.put(entry.getKey(), entry.getValue()));
     return temp;
   }
-
 }

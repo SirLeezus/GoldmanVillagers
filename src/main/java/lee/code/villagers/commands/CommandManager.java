@@ -61,25 +61,26 @@ public class CommandManager implements CommandExecutor {
   public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, String[] args) {
     if (sender instanceof Player player) {
       if (args.length > 0) {
-        for (SubCommand subCommand : getSubCommands()) {
-          if (args[0].equalsIgnoreCase(subCommand.getName())) {
-            if (!player.hasPermission(subCommand.getPermission())) player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NO_PERMISSION.getComponent(null)));
-            if (subCommand.performAsync()) performAsync(player, subCommand, args);
-            else subCommand.perform(player, args);
+        if (subCommands.containsKey(args[0].toLowerCase())) {
+          final SubCommand subCommand = getSubCommand(args[0].toLowerCase());
+          if (!player.hasPermission(subCommand.getPermission())) {
+            player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NO_PERMISSION.getComponent(null)));
             return true;
           }
-        }
-      }
-      sendHelpMessage(player);
-    } else if (args.length > 0) {
-      for (SubCommand subCommand : getSubCommands()) {
-        if (args[0].equalsIgnoreCase(subCommand.getName())) {
-          if (subCommand.performAsync()) performAsync(sender, subCommand, args);
-          else subCommand.performConsole(sender, args);
+          if (subCommand.performAsync()) performAsync(player, subCommand, args);
+          else subCommand.perform(player, args);
           return true;
         }
       }
+    } else if (args.length > 0) {
+      if (subCommands.containsKey(args[0].toLowerCase())) {
+        final SubCommand subCommand = getSubCommand(args[0].toLowerCase());
+        if (subCommand.performAsync()) performAsync(sender, subCommand, args);
+        else subCommand.performConsole(sender, args);
+        return true;
+      }
     }
+    sendHelpMessage(sender);
     return true;
   }
 
