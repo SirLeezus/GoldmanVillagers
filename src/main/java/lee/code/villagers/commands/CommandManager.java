@@ -5,6 +5,7 @@ import lee.code.villagers.Villagers;
 import lee.code.villagers.commands.cmds.*;
 import lee.code.villagers.lang.Lang;
 import lee.code.villagers.utils.CoreUtil;
+import lombok.Getter;
 import lombok.NonNull;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -20,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CommandManager implements CommandExecutor {
 
-  private final ConcurrentHashMap<String, SubCommand> subCommands = new ConcurrentHashMap<>();
+  @Getter private final ConcurrentHashMap<String, SubCommand> subCommands = new ConcurrentHashMap<>();
   private final ConcurrentHashMap<UUID, ScheduledTask> asyncTasks = new ConcurrentHashMap<>();
   private final Object synchronizedThreadLock = new Object();
   private final Villagers villagers;
@@ -53,7 +54,7 @@ public class CommandManager implements CommandExecutor {
     return subCommands.get(command);
   }
 
-  public List<SubCommand> getSubCommands() {
+  public List<SubCommand> getSubCommandList() {
     return new ArrayList<>(subCommands.values());
   }
 
@@ -116,7 +117,7 @@ public class CommandManager implements CommandExecutor {
   public void sendHelpMessage(CommandSender sender) {
     int number = 1;
     final Map<SubCommand, String> commands = new HashMap<>();
-    for (SubCommand subCommand : getSubCommands()) commands.put(subCommand, subCommand.getName());
+    for (SubCommand subCommand : getSubCommandList()) commands.put(subCommand, subCommand.getName());
     final Map<SubCommand, String> sortedCommands = CoreUtil.sortByValue(commands, Comparator.naturalOrder());
     final List<Component> lines = new ArrayList<>();
     lines.add(Lang.COMMAND_HELP_DIVIDER.getComponent(null));
