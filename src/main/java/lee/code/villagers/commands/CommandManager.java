@@ -77,7 +77,7 @@ public class CommandManager implements CommandExecutor {
         }
       }
     }
-    getSubCommand("help").performSender(sender, args);
+    performAsync(sender, getSubCommand("help"), args);
     return true;
   }
 
