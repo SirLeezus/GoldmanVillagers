@@ -58,7 +58,7 @@ public class LocationCMD extends SubCommand {
       return;
     }
     villagerManager.setVillagerLocation(villagerManager.getSelectedVillager(uuid), player.getLocation());
-    player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_PROFESSION_SUCCESSFUL.getComponent(null)));
+    player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_LOCATION_SUCCESSFUL.getComponent(null)));
   }
 
   @Override
