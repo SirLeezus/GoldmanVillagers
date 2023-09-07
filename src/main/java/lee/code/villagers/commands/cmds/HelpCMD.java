@@ -66,7 +66,6 @@ public class HelpCMD extends SubCommand {
     for (SubCommand subCommand : villagers.getCommandManager().getSubCommandList()) commands.put(subCommand, subCommand.getName());
     final Map<SubCommand, String> sortedCommands = CoreUtil.sortByValue(commands, Comparator.naturalOrder());
     final List<Component> lines = new ArrayList<>();
-    lines.add(Lang.COMMAND_HELP_DIVIDER.getComponent(null));
     lines.add(Lang.COMMAND_HELP_TITLE.getComponent(null));
     lines.add(Component.text(""));
 
