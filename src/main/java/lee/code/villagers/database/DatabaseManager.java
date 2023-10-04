@@ -16,9 +16,9 @@ import java.io.File;
 import java.sql.SQLException;
 
 public class DatabaseManager {
-
   private final Villagers villagers;
-  private Dao<VillagerTable, String> villagerDao;
+  private final Object synchronizedThreadLock = new Object();
+  private Dao<VillagerTable, Integer> villagerDao;
   private ConnectionSource connectionSource;
 
   public DatabaseManager(Villagers villagers) {
@@ -26,7 +26,6 @@ public class DatabaseManager {
   }
 
   private String getDatabaseURL() {
-    //Setup MongoDB
     if (!villagers.getDataFolder().exists()) villagers.getDataFolder().mkdir();
     return "jdbc:sqlite:" + new File(villagers.getDataFolder(), "database.db");
   }
@@ -69,33 +68,39 @@ public class DatabaseManager {
     cacheManager.getCacheVillagers().getNextID().set(highestID);
   }
 
-  public synchronized void createVillagerTable(VillagerTable villagerTable) {
-    Bukkit.getAsyncScheduler().runNow(villagers, scheduledTask -> {
-      try {
-        villagerDao.createIfNotExists(villagerTable);
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    });
+  public void createVillagerTable(VillagerTable villagerTable) {
+    synchronized (synchronizedThreadLock) {
+      Bukkit.getAsyncScheduler().runNow(villagers, scheduledTask -> {
+        try {
+          villagerDao.createIfNotExists(villagerTable);
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      });
+    }
   }
 
-  public synchronized void updateVillagerTable(VillagerTable villagerTable) {
-    Bukkit.getAsyncScheduler().runNow(villagers, scheduledTask -> {
-      try {
-        villagerDao.update(villagerTable);
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    });
+  public void updateVillagerTable(VillagerTable villagerTable) {
+    synchronized (synchronizedThreadLock) {
+      Bukkit.getAsyncScheduler().runNow(villagers, scheduledTask -> {
+        try {
+          villagerDao.update(villagerTable);
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      });
+    }
   }
 
-  public synchronized void deleteVillagerTable(VillagerTable villagerTable) {
-    Bukkit.getAsyncScheduler().runNow(villagers, scheduledTask -> {
-      try {
-        villagerDao.delete(villagerTable);
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    });
+  public void deleteVillagerTable(VillagerTable villagerTable) {
+    synchronized (synchronizedThreadLock) {
+      Bukkit.getAsyncScheduler().runNow(villagers, scheduledTask -> {
+        try {
+          villagerDao.delete(villagerTable);
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      });
+    }
   }
 }
