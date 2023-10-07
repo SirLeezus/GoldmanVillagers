@@ -10,7 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
-import org.bukkit.craftbukkit.v1_20_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_20_R2.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -24,7 +24,6 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class VillagerManager {
-
   private final Villagers villagers;
   private final ConcurrentHashMap<UUID, Integer> selectedVillager = new ConcurrentHashMap<>();
 
@@ -204,5 +203,4 @@ public class VillagerManager {
     double dot = toEntity.normalize().dot(eye.getDirection());
     return dot > 0.99D;
   }
-
 }
