@@ -1,6 +1,7 @@
 ![PluginImage](https://i.imgur.com/xQH2hqD.png)
 ![PluginImage](https://i.imgur.com/tPHY4sv.png)
 ![PluginImage](https://i.imgur.com/kMTIXwb.png)
+![PluginImage](https://i.imgur.com/cr971YU.png)
 
 ## About
 
